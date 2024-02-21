@@ -27,23 +27,8 @@ async function connectToDatabase() {
     };
 }
 
-async function initializeCounters(counterCollection) {
-    await counterCollection.updateOne(
-        {_id: "orderSeq"},
-        {$setOnInsert: {seq: 1}},
-        {upsert: true}
-    );
-    console.log("Prepared MongoDB");
-}
-
 async function main() {
     const {counterCollection, orderCollection} = await connectToDatabase();
-    await initializeCounters(counterCollection);
-
-    app.get("/orders", async (req, res) => {
-        const orders = await orderCollection.find({}).toArray();
-        res.json(orders);
-    });
 
     app.delete("/orders/:id", async (req, res) => {
         await orderCollection.deleteOne({_id: Number(req.params.id)});
@@ -54,7 +39,7 @@ async function main() {
         const orderSeq = await counterCollection.findOneAndUpdate(
             {_id: "orderSeq"},
             {$inc: {seq: 1}},
-            {returnOriginal: false} // Returns the document after update
+            {upsert: true, returnOriginal: false} // Returns the document after update
         );
 
         await orderCollection.insertOne({
@@ -65,7 +50,7 @@ async function main() {
     });
 
     app.listen(port, () => {
-        console.log(`DevOps assignment app listening on port ${port}`);
+        console.log(`DevOps assignment service1 app listening on port ${port}`);
     });
 }
 
