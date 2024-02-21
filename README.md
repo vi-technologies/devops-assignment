@@ -15,25 +15,24 @@ Below is the information given by the development team
 ### Starting the backend
 - required nodejs 21
 - set environment variable `MONGODB_URL="<mongodb connection url>"`, where `<mongodb connection url>` must match the [official mongodb node driver uri](https://docs.mongodb.com/drivers/node/current/fundamentals/connection/#connection-uri)
-- you may set an optional environment variable `PORT="<server running port>"` to change the default server port (default: 3000)
-- navigate to backend directory `cd backend`
+- navigate to package(s) directory `cd packages/<package>`
 - build using npm `npm install`
 - start using node `node index.js`
 
 ### Requirement
 Your deployment must meet the following criteria:
 - A working deployment which reachable through internet
-- IAC (Infrastructure as Code) deployment for the created aws resources. Yoy may use Cloudformation or Terraform for that purpose 
+- IAC (Infrastructure as Code) deployment for the created aws resources. You may use Cloudformation, Terraform or CDK for that purpose 
 - Documentation for the deployment plan and the resources created
 
 ### Guidebook on completing this assignment
-- Create a dockerfile to match the development request
+- Create dockerfiles to match the deployment needs.
 - Create all following resources using IAC (Infrastructure as Code) tools
 - Use [Amazon Elastic Container Registry](https://us-east-1.console.aws.amazon.com/ecr/get-started) to push the images to a private repository
 - Create a [Kubernetes](https://us-east-1.console.aws.amazon.com/eks/home) cluster
 - Use helm to deploy the service(s).
 - Create a mongodb instance and make it reachable for the deployed service, update the `MONGODB_URL` environment variable to match the mongodb connection url 
-- Expose the service to the internet using [AWS Load Balancer](https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#LoadBalancers:sort=loadBalancerName)
+- Expose the services to the internet using [AWS Load Balancer](https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#LoadBalancers:sort=loadBalancerName)
 - Document the deployment steps and the resources created in the deployment as clear and detailed as possible
 - Bonus:
   - Supply the deployment with CI/CD automated process to push the image to ECR and deploy it to the cluster
