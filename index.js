@@ -8,12 +8,15 @@ const port = process.env.PORT || 3000;
 const url = process.env.MONGODB_URL;
 const dbName = "DevOpsAssignment";
 
-const client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true}); // Use new URL parser and unified topology for MongoClient
 
 app.use(cors());
 app.use(bodyParser.json());
 
 async function connectToDatabase() {
+    if (!url) {
+        throw new Error("MONGODB_URL environment variable is not set");
+    }
+    const client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true}); // Use new URL parser and unified topology for MongoClient
     await client.connect();
     console.log("Connected to MongoDB");
 
