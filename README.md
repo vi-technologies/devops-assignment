@@ -43,3 +43,8 @@ Your deployment must meet the following criteria:
   - Consider multi-tenant and multi-environment deployment 
   - Documentation for disaster recovery plan
   - Any other improvement you think is relevant
+
+### How will the assignment be evaluated
+When evaluating the assignment, we will consider the following:
+- The deployment plan and the resources are created and working. we will trigger the API and will expect a valid response
+- The documentation is clear and detailed, we will follow the documentation to understand the deployment process
