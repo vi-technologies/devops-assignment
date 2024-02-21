@@ -30,7 +30,8 @@ Your deployment must meet the following criteria:
 - Create a dockerfile to match the development request
 - Create all following resources using IAC (Infrastructure as Code) tools
 - Use [Amazon Elastic Container Registry](https://us-east-1.console.aws.amazon.com/ecr/get-started) to push the images to a private repository
-- Create a [Kubernetes](https://us-east-1.console.aws.amazon.com/eks/home) cluster to deploy the service
+- Create a [Kubernetes](https://us-east-1.console.aws.amazon.com/eks/home) cluster
+- Use helm to deploy the service(s).
 - Create a mongodb instance and make it reachable for the deployed service, update the `MONGODB_URL` environment variable to match the mongodb connection url 
 - Expose the service to the internet using [AWS Load Balancer](https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#LoadBalancers:sort=loadBalancerName)
 - Document the deployment steps and the resources created in the deployment as clear and detailed as possible
@@ -39,3 +40,7 @@ Your deployment must meet the following criteria:
   - Monitor the service and handle recovery for different resource
   - Maintain and handle the scaling of the service
   - Maintain and handle the availability of the service according to best practices
+  - Secure the deployments according to best practices (rate limits, relevant security groups, etc)
+  - Consider multi-tenant and multi-environment deployment 
+  - Documentation for disaster recovery plan
+  - Any other improvement you think is relevant
