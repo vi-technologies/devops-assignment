@@ -1,10 +1,10 @@
 module aws_eks{
-source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
-  cluster_name    = "my-cluster"
-  cluster_version = "1.29"
+source                            = "terraform-aws-modules/eks/aws"
+  version                         = "~> 20.0"
+  cluster_name                    = var.name
+  cluster_version                 = "1.29"
   cluster_endpoint_public_access  = true
-  cluster_addons = {
+  cluster_addons                  = {
     coredns = {
       most_recent = true
     }
@@ -15,45 +15,18 @@ source  = "terraform-aws-modules/eks/aws"
       most_recent = true
     }
   }
-  vpc_id                   = "vpc-1234556abcdef"
-  subnet_ids               = ["subnet-abcde012", "subnet-bcde012a", "subnet-fghi345a"]
-  control_plane_subnet_ids = ["subnet-xyzde987", "subnet-slkjf456", "subnet-qeiru789"]
+  vpc_id                          = var.vpc_id
+  subnet_ids                      = var.subnet_ids
+  control_plane_subnet_ids        = var.controlplane_subnet_ids
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
-    instance_types = ["m6i.large", "m5.large", "m5n.large", "m5zn.large"]
+    instance_types = var.default_eks_managed_node_groups
   }
 
-  eks_managed_node_groups = {
-    example = {
-      min_size     = 1
-      max_size     = 10
-      desired_size = 1
-
-      instance_types = ["t3.large"]
-      capacity_type  = "SPOT"
-    }
-  }
+  eks_managed_node_groups         = var.eks_managed_node_groups
   # Cluster access entry
   # To add the current caller identity as an administrator
-  enable_cluster_creator_admin_permissions = true
-
-  access_entries = {
-    # One access entry with a policy associated
-    example = {
-      kubernetes_groups = []
-      principal_arn     = "arn:aws:iam::123456789012:role/something"
-
-      policy_associations = {
-        example = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
-          access_scope = {
-            namespaces = ["default"]
-            type       = "namespace"
-          }
-        }
-      }
-    }
-  }
+  enable_cluster_creator_admin_permissions = var.enable_cluster_admin_permissions
 
   tags = {
     environment = "vi-assignment"
