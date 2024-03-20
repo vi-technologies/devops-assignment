@@ -24,7 +24,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
         AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
     - name: Build the SERVICE1 Docker image
-      run: docker build packages/service1/. -t service2
+      run: docker build packages/service1/. -t service1
     - name: tag specific version for SERVICE1
       run: docker tag service1:latest ${{ env.ecr_url }}/service1:$(date +%s)
     - name: tag as latest SERVICE1
