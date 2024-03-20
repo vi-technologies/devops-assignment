@@ -30,13 +30,13 @@ jobs:
     - name: Build the SERVICE1 Docker image
       run: docker build packages/service1/.
     - name: tag specific version for SERVICE1
-      run: docker tag service1:latest ${{ ecr_url }}/service1:$(date +%s)
+      run: docker tag service1:latest ${{ env.ecr_url }}/service1:$(date +%s)
     - name: tag as latest SERVICE1
-      run: docker tag service1:latest ${{ ecr_url }}/service1:latest
+      run: docker tag service1:latest ${{ env.ecr_url }}/service1:latest
     - name: push SERVICE1 $(date +%s)
-      run: docker push ${{ ecr_url }}/service1:$(date +%s)
+      run: docker push ${{ env.ecr_url }}/service1:$(date +%s)
     - name: push SERVICE1 latest
-      run: docker push ${{ ecr_url }}/service1:latest
+      run: docker push ${{ env.ecr_url }}/service1:latest
       
   build-service2:
     runs-on: ubuntu-latest
