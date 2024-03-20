@@ -18,13 +18,13 @@ env:
   MONGODB_URL: mongodb
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
   targetPort: 3001
   protocol: TCP
 
 ingress:
-  enabled: true
+  enabled: false
   className: ""
   annotations: {
     # define aws alb
@@ -55,7 +55,7 @@ resources: {}
   #   memory: 128Mi
 
 autoscaling:
-  enabled: true
+  enabled: false
   minReplicas: 1
   maxReplicas: 5
   targetCPUUtilizationPercentage: 80

@@ -18,13 +18,13 @@ env:
   MONGODB_URL: mongodb
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
   targetPort: 3000
   protocol: TCP
 
 ingress:
-  enabled: true
+  enabled: false
   className: ""
   annotations: {
     # define aws alb
