@@ -5,6 +5,9 @@ on:
     branches: [ "master","dev" ]
   pull_request:
     branches: [ "master","dev" ]
+  workflow_dispatch:
+    
+
 
 env:
   ecr_url: ${{ vars.AWS_ACCOUNT }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
