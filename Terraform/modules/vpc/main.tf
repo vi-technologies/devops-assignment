@@ -8,6 +8,7 @@ module "aws_vpc" {
 
   enable_nat_gateway = var.nat_gw
   enable_vpn_gateway = var.vpn_gw
+  map_public_ip_on_launch	= true
 
   tags               = {
     tf_managed  = "true"

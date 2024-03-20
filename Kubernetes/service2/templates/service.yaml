@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: {{ .Values.service.protocol }}
+      name: {{$serviceName := print  .Values.service.protocol "-" .Values.service.targetPort }}
   selector:
     {{- include "service2.selectorLabels" . | nindent 4 }}

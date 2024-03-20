@@ -32,6 +32,10 @@ async function main() {
         res.json(orders);
     });
 
+    app.get("/health", async (req, res) => {
+        res.json('healthy');
+    });
+
     app.listen(port, () => {
         console.log(`DevOps assignment service2 app listening on port ${port}`);
     });
