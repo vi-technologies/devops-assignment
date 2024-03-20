@@ -26,7 +26,7 @@ jobs:
         export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }}
         export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }}
     - name: get ECR creds
-      run: aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ ecr_url }}
+      run: aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ env.ecr_url }}
     - name: Build the SERVICE1 Docker image
       run: docker build packages/service1/.
     - name: tag specific version for SERVICE1
@@ -57,11 +57,11 @@ jobs:
     - name: Build the SERVICE2 Docker image
       run: docker build packages/service2/.
     - name: tag specific version for SERVICE2
-      run: docker tag service2:latest ${{ ecr_url }}/service2:$(date +%s)
+      run: docker tag service2:latest ${{ env.ecr_url }}/service2:$(date +%s)
     - name: tag as latest SERVICE2
-      run: docker tag service2:latest ${{ ecr_url }}/service2:latest
+      run: docker tag service2:latest ${{ env.ecr_url }}/service2:latest
     - name: push SERVICE2 $(date +%s)
-      run: docker push ${{ ecr_url }}/service1:$(date +%s)
+      run: docker push ${{ env.ecr_url }}/service1:$(date +%s)
     - name: push SERVICE2 latest
-      run: docker push ${{ ecr_url }}/service1:latest
+      run: docker push ${{ env.ecr_url }}/service1:latest
       
