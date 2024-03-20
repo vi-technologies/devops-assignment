@@ -1,0 +1,67 @@
+name: Docker Build svc1 & svc2
+
+on:
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+
+env:
+  ecr_url: ${{ vars.AWS_ACCOUNT }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
+
+jobs:
+
+  build-service1:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: install aws cli
+      run: |
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
+    - name: export env vars for aws cli
+      run: |
+        export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }}
+        export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }}
+    - name: get ECR creds
+      run: aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ ecr_url }}
+    - name: Build the SERVICE1 Docker image
+      run: docker build packages/service1/.
+    - name: tag specific version for SERVICE1
+      run: docker tag service1:latest ${{ ecr_url }}/service1:$(date +%s)
+    - name: tag as latest SERVICE1
+      run: docker tag service1:latest ${{ ecr_url }}/service1:latest
+    - name: push SERVICE1 $(date +%s)
+      run: docker push ${{ ecr_url }}/service1:$(date +%s)
+    - name: push SERVICE1 latest
+      run: docker push ${{ ecr_url }}/service1:latest
+      
+  build-service2:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: install aws cli
+      run: |
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
+    - name: export env vars for aws cli
+      run: |
+        export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }}
+        export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }}
+    - name: get ECR creds
+      run: aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ ecr_url }}
+    - name: Build the SERVICE2 Docker image
+      run: docker build packages/service2/.
+    - name: tag specific version for SERVICE2
+      run: docker tag service2:latest ${{ ecr_url }}/service2:$(date +%s)
+    - name: tag as latest SERVICE2
+      run: docker tag service2:latest ${{ ecr_url }}/service2:latest
+    - name: push SERVICE2 $(date +%s)
+      run: docker push ${{ ecr_url }}/service1:$(date +%s)
+    - name: push SERVICE2 latest
+      run: docker push ${{ ecr_url }}/service1:latest
+      
