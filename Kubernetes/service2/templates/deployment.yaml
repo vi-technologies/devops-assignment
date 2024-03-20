@@ -28,10 +28,6 @@ spec:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /health
-          #     port: {{ .Values.service.targetPort }}
           {{- if or $.Values.env $.Values.envSecrets }}
           env:
             {{- range $key, $value := $.Values.env }}

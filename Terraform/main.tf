@@ -51,3 +51,21 @@ module "eks_jf" {
 		}
 	}
 }
+
+resource "aws_ecr_repository" "service1" {
+  name                 = "service1"
+  image_tag_mutability = "MUTABLE"
+	tags								 = {
+    environment = "vi-assignment"
+    tf_managed  = "true"
+  }
+}
+
+resource "aws_ecr_repository" "service2" {
+  name                 = "service2"
+  image_tag_mutability = "MUTABLE"
+	tags								 = {
+    environment = "vi-assignment"
+    tf_managed  = "true"
+  }
+}

@@ -1,4 +1,4 @@
-### VPC ###
+##### VPC #####
 output vpc_id {
   description = "VPC ID"
 	value     = module.vpc_jf.vpc_id
@@ -43,8 +43,9 @@ output "public_subnets_cidr" {
 	description	= "List of CIDR blocks for private subnets"
 	value		= module.vpc_jf.public_subnets_cidr
 }
+##### VPC #####
 
-### EKS ###
+##### EKS #####
 output "cluster_arn" {
   description = "The Amazon Resource Name (ARN) of the cluster"
   value       = module.eks_jf.cluster_arn
@@ -89,3 +90,17 @@ output "eks_managed_node_groups" {
   description = "Map of attribute maps for all EKS managed node groups created"
   value       = module.eks_jf.eks_managed_node_groups
 }
+##### EKS ######
+
+
+##### ECR ######
+output "ecr_repository_service1_url" {
+  description = "the URL of service1 repo in ECR"
+  value       = aws_ecr_repository.service1.repository_url
+}
+
+output "ecr_repository_service2_url" {
+  description = "the URL of service1 repo in ECR"
+  value       = aws_ecr_repository.service2.repository_url
+}
+##### ECR ######
