@@ -53,7 +53,7 @@ jobs:
     - name: tag as latest SERVICE2
       run: docker tag service2:latest ${{ env.ecr_url }}/service2:latest
     - name: push SERVICE2 $(date +%s)
-      run: docker push ${{ env.ecr_url }}/service1:$(date +%s)
+      run: docker push ${{ env.ecr_url }}/service2:$(date +%s)
     - name: push SERVICE2 latest
-      run: docker push ${{ env.ecr_url }}/service1:latest
+      run: docker push ${{ env.ecr_url }}/service2:latest
       
