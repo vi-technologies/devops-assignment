@@ -100,3 +100,8 @@ Helm can be used locally or through a deployment tool like ArgoCD to pull the im
 ## Conclusion
 
 This README provides a complete guide to setting up an AWS backend for an online orders system using Terraform. Adjust the configurations as necessary based on specific project needs or updates.
+## DevOps Engineer Home Assignment
+Below is a home assignment for a DevOps Engineer position. You are requested to:
+1. Understand the requirements and use case. You may contact the interviewer for further clarification.
+2. Implement and run your deployment plan for backend environment using the most efficient tools.
+3. Present your deployment and result in the next interview session.
